@@ -1,0 +1,8 @@
+winzou_state_machine:
+    sylius_order_checkout:
+        callbacks:
+            after:
+                nextstore_gift_card_associate_to_customer:
+                    on: ["complete"]
+                    do: ["@nextstore_sylius_gift_card.operator.order_gift_card", "associateToCustomer"]
+                    args: ["object"]

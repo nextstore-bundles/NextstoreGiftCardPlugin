@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://symfony.com/schema/dic/services"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults public="true"/>
+
+        <service id="nextstore_sylius_gift_card.controller.action.add_gift_card_to_order"
+                 class="Nextstore\SyliusGiftCardPlugin\Controller\Action\AddGiftCardToOrderAction">
+            <argument type="service" id="form.factory"/>
+            <argument type="service" id="sylius.context.cart"/>
+            <argument type="service" id="nextstore_sylius_gift_card.applicator.gift_card"/>
+            <argument type="service" id="nextstore_sylius_gift_card.resolver.redirect_url"/>
+            <argument type="service" id="twig"/>
+            <argument type="service" id="doctrine"/>
+        </service>
+
+        <service id="nextstore_sylius_gift_card.controller.action.remove_gift_card_from_order"
+                 class="Nextstore\SyliusGiftCardPlugin\Controller\Action\RemoveGiftCardFromOrderAction">
+            <argument type="service" id="sylius.context.cart"/>
+            <argument type="service" id="nextstore_sylius_gift_card.applicator.gift_card"/>
+            <argument type="service" id="nextstore_sylius_gift_card.resolver.redirect_url"/>
+            <argument type="service" id="doctrine"/>
+        </service>
+
+        <service id="nextstore_sylius_gift_card.controller.action.gift_card_balance"
+                 class="Nextstore\SyliusGiftCardPlugin\Controller\Action\GiftCardBalanceAction">
+            <argument type="service" id="nextstore_sylius_gift_card.repository.gift_card"/>
+            <argument type="service" id="twig"/>
+        </service>
+
+        <service id="nextstore_sylius_gift_card.controller.action.search_gift_card"
+                 class="Nextstore\SyliusGiftCardPlugin\Controller\Action\SearchGiftCardAction">
+            <argument type="service" id="form.factory"/>
+            <argument type="service" id="twig"/>
+        </service>
+
+        <service id="nextstore_sylius_gift_card.controller.action.download_pdf"
+                 class="Nextstore\SyliusGiftCardPlugin\Controller\Action\DownloadGiftCardPdfAction">
+            <argument type="service" id="nextstore_sylius_gift_card.repository.gift_card"/>
+            <argument type="service" id="security.authorization_checker"/>
+            <argument type="service" id="nextstore_sylius_gift_card.provider.gift_card_configuration"/>
+            <argument type="service" id="nextstore_sylius_gift_card.renderer.pdf"/>
+            <argument type="service" id="router"/>
+        </service>
+
+        <service id="nextstore_sylius_gift_card.controller.action.resend_email"
+                 class="Nextstore\SyliusGiftCardPlugin\Controller\Action\ResendGiftCardEmailAction">
+            <argument type="service" id="nextstore_sylius_gift_card.email_manager.gift_card_order"/>
+            <argument type="service" id="nextstore_sylius_gift_card.repository.gift_card"/>
+            <argument type="service" id="router"/>
+        </service>
+
+        <service id="nextstore_sylius_gift_card.controller.action.generate_encoded_example_pdf"
+                 class="Nextstore\SyliusGiftCardPlugin\Controller\Action\Admin\GenerateEncodedExamplePdfAction">
+            <argument type="service" id="nextstore_sylius_gift_card.factory.gift_card"/>
+            <argument type="service" id="nextstore_sylius_gift_card.repository.gift_card_configuration"/>
+            <argument type="service" id="nextstore_sylius_gift_card.renderer.pdf"/>
+            <argument type="service" id="form.factory"/>
+        </service>
+    </services>
+</container>

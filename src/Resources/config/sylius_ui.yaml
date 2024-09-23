@@ -1,0 +1,7 @@
+sylius_ui:
+    events:
+        sylius.shop.product.show.add_to_cart_form:
+            blocks:
+                nextstore_sylius_gift_card_information:
+                    template: '@NextstoreSyliusGiftCardPlugin/Shop/Product/Show/_addToCartGiftCardInformation.html.twig'
+                    priority: 10

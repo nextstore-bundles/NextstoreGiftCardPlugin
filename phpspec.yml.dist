@@ -1,0 +1,4 @@
+suites:
+    main:
+        namespace: Nextstore\SyliusGiftCardPlugin
+        psr4_prefix: Nextstore\SyliusGiftCardPlugin

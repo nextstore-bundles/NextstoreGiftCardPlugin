@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nextstore\SyliusGiftCardPlugin\Api\CommandHandler;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Nextstore\SyliusGiftCardPlugin\Api\Command\AddItemToCart as SetonoSyliusGiftCardAddItemToCart;
+use Nextstore\SyliusGiftCardPlugin\Api\Command\AddItemToCart as NextstoreSyliusGiftCardAddItemToCart;
 use Nextstore\SyliusGiftCardPlugin\Factory\GiftCardFactoryInterface;
 use Nextstore\SyliusGiftCardPlugin\Model\OrderItemUnitInterface;
 use Nextstore\SyliusGiftCardPlugin\Model\ProductInterface;
@@ -71,7 +71,7 @@ final class AddItemToCartHandler
         $cartItem = $this->cartItemFactory->createNew();
         $cartItem->setVariant($productVariant);
 
-        if ($addItemToCart instanceof SetonoSyliusGiftCardAddItemToCart) {
+        if ($addItemToCart instanceof NextstoreSyliusGiftCardAddItemToCart) {
             /** @var ProductInterface $product */
             $product = $productVariant->getProduct();
             if ($product->isGiftCardAmountConfigurable()) {
@@ -85,7 +85,7 @@ final class AddItemToCartHandler
         $this->orderItemQuantityModifier->modify($cartItem, $addItemToCart->quantity);
         $this->orderModifier->addToOrder($cart, $cartItem);
 
-        if ($addItemToCart instanceof SetonoSyliusGiftCardAddItemToCart) {
+        if ($addItemToCart instanceof NextstoreSyliusGiftCardAddItemToCart) {
             /** @var OrderItemUnitInterface $unit */
             foreach ($cartItem->getUnits() as $unit) {
                 $giftCard = $this->giftCardFactory->createFromOrderItemUnitAndCart($unit, $cart);

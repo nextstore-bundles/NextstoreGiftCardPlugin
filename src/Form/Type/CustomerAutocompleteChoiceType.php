@@ -33,8 +33,8 @@ final class CustomerAutocompleteChoiceType extends AbstractType
     {
         $view->vars['remote_criteria_type'] = 'contains';
         $view->vars['remote_criteria_name'] = 'phrase';
-        $view->vars['remote_url'] = $this->urlGenerator->generate('nextstore_sylius_gift_card_admin_ajax_customer_by_email_phrase');
-        $view->vars['load_edit_url'] = $this->urlGenerator->generate('nextstore_sylius_gift_card_admin_ajax_customer_by_email');
+        // $view->vars['remote_url'] = $this->urlGenerator->generate('nextstore_sylius_gift_card_admin_ajax_customer_by_email_phrase');
+        // $view->vars['load_edit_url'] = $this->urlGenerator->generate('nextstore_sylius_gift_card_admin_ajax_customer_by_email');
     }
 
     public function getBlockPrefix(): string

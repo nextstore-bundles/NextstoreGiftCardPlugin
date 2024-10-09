@@ -30,7 +30,7 @@ final class SearchGiftCardAction
         $form = $this->formFactory->create(GiftCardSearchType::class, $searchGiftCardCommand);
         $form->handleRequest($request);
 
-        return new Response($this->twig->render('@SetonoSyliusGiftCardPlugin/Shop/GiftCard/search.html.twig', [
+        return new Response($this->twig->render('@NextstoreSyliusGiftCardPlugin/Shop/GiftCard/search.html.twig', [
             'form' => $form->createView(),
             'giftCard' => ($form->isSubmitted() && $form->isValid()) ? $searchGiftCardCommand->getGiftCard() : null,
         ]));

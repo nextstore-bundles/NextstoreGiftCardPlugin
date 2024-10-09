@@ -86,14 +86,14 @@ final class PdfRenderer implements PdfRendererInterface
         Assert::notNull($template);
 
         $html = $this->twig->render($this->twig->createTemplate($template), [
-            'channel' => $this->normalizer->normalize($channel, null, ['groups' => 'setono:sylius-gift-card:render']),
+            'channel' => $this->normalizer->normalize($channel, null, ['groups' => 'nextstore:sylius-gift-card:render']),
             'localeCode' => $localeCode,
             'giftCard' => $this->normalizer->normalize($giftCard, null, [
-                'groups' => 'setono:sylius-gift-card:render',
+                'groups' => 'nextstore:sylius-gift-card:render',
                 'localeCode' => $localeCode,
             ]),
             'configuration' => $this->normalizer->normalize($giftCardConfiguration, null, [
-                'groups' => 'setono:sylius-gift-card:render',
+                'groups' => 'nextstore:sylius-gift-card:render',
                 'iri' => 'https://setono.com', // we add a fake IRI else we get the 'Unable to generate an IRI' exception when the gift card configuration hasn't been saved yet
             ]),
         ]);

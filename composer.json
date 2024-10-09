@@ -8,6 +8,7 @@
     "license": "proprietary",
     "require": {
         "php": "^8.1",
+        "setono/doctrine-orm-trait": "^1.1",
         "sylius/sylius": "^1.12.13",
         "symfony/webpack-encore-bundle": "^1.15"
     },

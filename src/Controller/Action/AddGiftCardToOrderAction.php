@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nextstore\SyliusGiftCardPlugin\Controller\Action;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Setono\Doctrine\ORMTrait AS ORMManagerTrait;
+use Setono\DoctrineObjectManagerTrait\ORM\ORMManagerTrait;
 use Nextstore\SyliusGiftCardPlugin\Applicator\GiftCardApplicatorInterface;
 use Nextstore\SyliusGiftCardPlugin\Form\Type\AddGiftCardToOrderType;
 use Nextstore\SyliusGiftCardPlugin\Model\OrderInterface;

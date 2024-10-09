@@ -1,10 +1,10 @@
 imports:
-    - { resource: "@NextstoreSyliusGiftCardPlugin/Resources/config/grids.yaml" }
-    - { resource: "@NextstoreSyliusGiftCardPlugin/Resources/config/sylius_ui.yaml" }
+    - { resource: "@NextstoreSyliusGiftCardPlugin/src/Resources/config/grids.yaml" }
+    - { resource: "@NextstoreSyliusGiftCardPlugin/src/Resources/config/sylius_ui.yaml" }
 
-    - { resource: "@NextstoreSyliusGiftCardPlugin/Resources/config/state_machine/sylius_order.yaml" }
-    - { resource: "@NextstoreSyliusGiftCardPlugin/Resources/config/state_machine/sylius_order_checkout.yaml" }
-    - { resource: "@NextstoreSyliusGiftCardPlugin/Resources/config/state_machine/sylius_order_payment.yaml" }
+    - { resource: "@NextstoreSyliusGiftCardPlugin/src/Resources/config/state_machine/sylius_order.yaml" }
+    - { resource: "@NextstoreSyliusGiftCardPlugin/src/Resources/config/state_machine/sylius_order_checkout.yaml" }
+    - { resource: "@NextstoreSyliusGiftCardPlugin/src/Resources/config/state_machine/sylius_order_payment.yaml" }
 
 sylius_mailer:
     emails:
@@ -20,7 +20,7 @@ jms_serializer:
         directories:
             setono-sylius-gift-card-sylius:
                 namespace_prefix: "Setono\\SyliusGiftCardPlugin\\Model"
-                path: "@NextstoreSyliusGiftCardPlugin/Resources/config/serializer"
+                path: "@NextstoreSyliusGiftCardPlugin/src/Resources/config/serializer"
 
 liip_imagine:
     filter_sets:

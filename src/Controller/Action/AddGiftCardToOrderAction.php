@@ -78,7 +78,7 @@ final class AddGiftCardToOrderAction
             return new RedirectResponse($this->redirectRouteResolver->getUrlToRedirectTo($request, 'sylius_shop_cart_summary'));
         }
 
-        return new Response($this->twig->render('@SetonoSyliusGiftCardPlugin/Shop/addGiftCardToOrder.html.twig', [
+        return new Response($this->twig->render('@NextstoreSyliusGiftCardPlugin/Shop/addGiftCardToOrder.html.twig', [
             'form' => $form->createView(),
         ]));
     }

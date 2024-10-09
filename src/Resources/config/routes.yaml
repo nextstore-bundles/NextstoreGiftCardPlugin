@@ -1,17 +1,17 @@
 nextstore_sylius_gift_card_shop:
-    resource: "@NextstoreSyliusGiftCardPlugin/src/Resources/config/routes/shop.yaml"
+    resource: "@NextstoreSyliusGiftCardPlugin/Resources/config/routes/shop.yaml"
     prefix: /{_locale}
     requirements:
         _locale: ^[A-Za-z]{2,4}(_([A-Za-z]{4}|[0-9]{3}))?(_([A-Za-z]{2}|[0-9]{3}))?$
 
 nextstore_sylius_gift_card_admin:
-    resource: "@NextstoreSyliusGiftCardPlugin/src/Resources/config/routes/admin.yaml"
+    resource: "@NextstoreSyliusGiftCardPlugin/Resources/config/routes/admin.yaml"
     prefix: /admin
 
 nextstore_sylius_gift_card_admin_ajax:
-    resource: "@NextstoreSyliusGiftCardPlugin/src/Resources/config/routes/admin_ajax.yaml"
+    resource: "@NextstoreSyliusGiftCardPlugin/Resources/config/routes/admin_ajax.yaml"
     prefix: /admin/ajax
     
 nextstore_sylius_gift_card_admin_api:
-    resource: "@NextstoreSyliusGiftCardPlugin/src/Resources/config/routes/admin_api.yaml"
+    resource: "@NextstoreSyliusGiftCardPlugin/Resources/config/routes/admin_api.yaml"
     prefix: /api/v{version}

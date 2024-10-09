@@ -1,5 +1,6 @@
 {
-    "type": "nextstore/sylius-gift-card-plugin",
+    "name": "nextstore/sylius-gift-card-plugin",
+    "type": "sylius-plugin",
     "keywords": [
         "sylius",
         "sylius-plugin"

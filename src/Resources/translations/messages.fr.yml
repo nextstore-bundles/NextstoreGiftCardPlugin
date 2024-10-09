@@ -1,0 +1,90 @@
+nextstore_sylius_gift_card:
+    form:
+        add_to_cart:
+            gift_card_information:
+                amount: Valeure
+                custom_message: Message personnalisé
+                custom_message_placeholder: Si vous souhaitez ajouter un message personnalisé à votre chèque-cadeau, écrivez le ici...
+        channel_configuration:
+            channel: Canal
+            locale: Langue
+        date_period:
+            unit: Unité
+            unit_day: Jours
+            unit_hour: Heures
+            unit_month: Mois
+            unit_week: Semaines
+            unit_year: Années
+            value: Valeur
+        gift_card:
+            channel: Canal
+            custom_message: Message personnalisé
+            custom_message_placeholder: Ce message sera affiché sur le PDF du chèque-cadeau...
+            expires_at: Expire le
+            send_notification_email: Envoyer un email de notification
+        gift_card_configuration:
+            background_image: Image de fond
+            channel_configurations: Configurations des canaux
+            code: Code
+            default: Configuration par défaut
+            default_validity_period: Durée de validité par défaut
+            enabled: Activé
+            orientation: Orientation
+            page_size: Taille de la page
+        product:
+            gift_card: Chèque-cadeau
+            gift_card_amount_configurable: Montant chèque-cadeau configurable
+    ui:
+        active: Actif
+        add_gift_card_to_order: Ajouter le chèque-cadeau
+        amount: Montant
+        applied_gift_cards: Chèques-cadeaux utilisés
+        average_amount: Montant moyen
+        balance: Solde
+        bought_at_order: Commande d'origine
+        channel_configurations: Configurations des canaux
+        configuration: Configuration
+        covered_by_gift_cards: Montant pris en charge
+        count: Nombre
+        create_for_channel: Créer pour %channel%
+        customer_help_text: Quand vous attribuez un chèque-cadeau à un client, Sylius peut envoyer un email à ce client.
+        customer_email: Customer email
+        download_pdf: PDF
+        edit_gift_card: Edit gift card
+        enter_gift_card_code: Renseignez le numéro de chèque-cadeau
+        edit_gift_card_configuration: Modifier la configuration
+        gift_card: Chèque-cadeau
+        gift_card_configurations: Config. chèques-cadeaux
+        gift_card_channel_does_not_match_channel: Ce chèque-cadeau a été acheté sur un autre canal, veuillez l'utiliser sur %channel%
+        gift_card_code_is_invalid: Numéro de chèque-cadeau invalide
+        gift_cards: Chèques-cadeaux
+        gift_card_search: Chercher un chèque cadeau
+        gift_cards_adjustment_total: Montant des chèques-cadeaux
+        has_no_gift_card: Ne contient pas de chèque-cadeau
+        initial_amount: Montant initial
+        in_cart: In cart
+        list_orders: Lister les commandes
+        manage_gift_cards: Gérer les chèques-cadeaux
+        manage_gift_card_configurations: Gérer les configurations de chèques-cadeaux
+        new_gift_card: Nouveau chèque-cadeau
+        new_gift_card_configuration: Nouvelle configuration de chèque-cadeau
+        manually_created: Créé manuellement
+        no_gift_card: Pas de chèque-cadeau utilisé
+        no_customer: Pas de client
+        product_is_not_gift_card: Le produit n'est pas un chèque cadeau
+        resend_email: Renvoyer l'email
+        total: Total
+        update_preview: Update preview
+        your_gift_card_will_only_be_charged_if_you_complete_your_order: Votre chèque-cadeau ne sera débité que si vous complétez votre commande
+    email:
+        balance: Solde
+        new_gift_card: Nouveau chèque-cadeau
+        new_gift_card_intro: Un nouveau chèque-cadeau a été créé pour vous
+        your_gift_card: Votre chèque cadeau
+        your_gift_cards_you_bought_in_the_order: Vos chèques-cadeaux achetés avec cette commande
+
+# Missing from Sylius for some reason
+sylius:
+    form:
+        locale:
+            select: Sélectionnez une langue

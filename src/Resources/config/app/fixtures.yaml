@@ -1,0 +1,40 @@
+sylius_fixtures:
+    suites:
+        default:
+            fixtures:
+
+                # Random
+                nextstore_gift_card:
+                    options:
+                        random: 20
+
+                # Few more disabled
+                nextstore_gift_card_channel_specific:
+                    name: nextstore_gift_card
+                    options:
+                        random: 2
+                        prototype:
+                            enabled: false
+
+                nextstore_gift_card_custom:
+                    name: nextstore_gift_card
+                    options:
+                        custom:
+                            gift_card_one_usd:
+                                code: '1USD'
+                                channel: 'FASHION_WEB'
+                                currency: 'USD'
+                                amount: 1.00
+                            gift_card_two_usd:
+                                code: '2USD'
+                                channel: 'FASHION_WEB'
+                                amount: 2.00
+                
+                nextstore_gift_card_configuration:
+                    options:
+                        custom:
+                            default_configuration:
+                                code: 'default_configuration'
+                                background_image: '@NextstoreSyliusGiftCardPlugin/Resources/fixtures/default_background.png'
+                                enabled: true
+                                default: true

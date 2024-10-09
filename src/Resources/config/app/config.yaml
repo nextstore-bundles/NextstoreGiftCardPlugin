@@ -20,7 +20,7 @@ jms_serializer:
         directories:
             setono-sylius-gift-card-sylius:
                 namespace_prefix: "Setono\\SyliusGiftCardPlugin\\Model"
-                path: "@NextstoreSyliusGiftCardPlugin/src/Resources/config/serializer"
+                path: "@NextstoreSyliusGiftCardPlugin/Resources/config/serializer"
 
 liip_imagine:
     filter_sets:

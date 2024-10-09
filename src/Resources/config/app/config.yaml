@@ -18,8 +18,8 @@ sylius_mailer:
 jms_serializer:
     metadata:
         directories:
-            setono-sylius-gift-card-sylius:
-                namespace_prefix: "Setono\\SyliusGiftCardPlugin\\Model"
+            nextstore-sylius-gift-card-sylius:
+                namespace_prefix: "Nextstore\\SyliusGiftCardPlugin\\Model"
                 path: "@NextstoreSyliusGiftCardPlugin/Resources/config/serializer"
 
 liip_imagine:

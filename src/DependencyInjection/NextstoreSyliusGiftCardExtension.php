@@ -35,7 +35,7 @@ final class NextstoreSyliusGiftCardExtension extends AbstractResourceExtension i
          * @psalm-suppress PossiblyNullArgument
          */
         $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../src/Resources/config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
         $container->setParameter('nextstore_sylius_gift_card.code_length', $config['code_length']);
         $container->setParameter(

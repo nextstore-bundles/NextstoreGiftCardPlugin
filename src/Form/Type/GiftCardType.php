@@ -9,8 +9,10 @@ use Nextstore\SyliusGiftCardPlugin\Model\GiftCardInterface;
 use Sylius\Bundle\ResourceBundle\Form\EventSubscriber\AddCodeFormSubscriber;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\Customer;
 use Sylius\Component\Currency\Model\CurrencyInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -45,8 +47,14 @@ final class GiftCardType extends AbstractResourceType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addEventSubscriber(new AddCodeFormSubscriber());
-        $builder->add('customer', CustomerAutocompleteChoiceType::class, [
-            'label' => 'sylius.ui.customer',
+        // $builder->add('customer', CustomerAutocompleteChoiceType::class, [
+        //     'label' => 'sylius.ui.customer',
+        // ]);
+        $builder->add('customer', EntityType::class, [
+            'class' => Customer::class,
+            'choice_label' => function (Customer $customer): string {
+                return $customer->getFullName();
+            }
         ]);
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
             /** @var GiftCardInterface $giftCard */

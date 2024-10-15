@@ -9,7 +9,7 @@ use Nextstore\SyliusGiftCardPlugin\Model\GiftCardInterface;
 use Sylius\Bundle\ResourceBundle\Form\EventSubscriber\AddCodeFormSubscriber;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\Component\Core\Model\Customer;
+use App\Entity\Customer\Customer;
 use Sylius\Component\Currency\Model\CurrencyInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

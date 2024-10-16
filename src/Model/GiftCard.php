@@ -52,6 +52,10 @@ class GiftCard implements GiftCardInterface
 
     protected ?string $receiverName = null;
 
+    protected ?string $receiverEmail = null;
+
+    protected ?string $senderName = null;
+
     public function __construct()
     {
         $this->appliedOrders = new ArrayCollection();
@@ -326,5 +330,25 @@ class GiftCard implements GiftCardInterface
     public function setReceiverName(?string $receiverName): void
     {
         $this->receiverName = $receiverName;
+    }
+
+    public function getReceiverEmail(): ?string
+    {
+        return $this->receiverEmail;
+    }
+
+    public function setReceiverEmail(?string $receiverEmail): void
+    {
+        $this->receiverEmail = $receiverEmail;
+    }
+
+    public function getSenderName(): ?string
+    {
+        return $this->senderName;
+    }
+
+    public function setSenderName(?string $senderName): void
+    {
+        $this->senderName = $senderName;
     }
 }

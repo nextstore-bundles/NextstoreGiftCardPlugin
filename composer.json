@@ -11,7 +11,8 @@
         "setono/doctrine-object-manager-trait": "^1.3",
         "setono/doctrine-orm-trait": "^1.1",
         "sylius/sylius": "^1.12.13",
-        "symfony/webpack-encore-bundle": "^1.15"
+        "symfony/webpack-encore-bundle": "^1.15",
+        "webimpress/safe-writer": "^2.2"
     },
     "require-dev": {
         "behat/behat": "^3.6.1",

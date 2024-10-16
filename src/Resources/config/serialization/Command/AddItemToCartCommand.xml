@@ -17,5 +17,14 @@
         <attribute name="customMessage">
             <group>shop:cart:add_item</group>
         </attribute>
+        <attribute name="receiverName">
+            <group>shop:cart:add_item</group>
+        </attribute>
+        <attribute name="receiverEmail">
+            <group>shop:cart:add_item</group>
+        </attribute>
+        <attribute name="senderName">
+            <group>shop:cart:add_item</group>
+        </attribute>
     </class>
 </serializer>

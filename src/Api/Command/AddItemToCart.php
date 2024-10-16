@@ -12,12 +12,28 @@ class AddItemToCart extends BaseAddItemToCart
 
     protected ?string $customMessage;
 
-    public function __construct(string $productVariantCode, int $quantity, int $amount = null, string $customMessage = null)
+    protected ?string $receiverName;
+
+    protected ?string $receiverEmail;
+
+    protected ?string $senderName;
+
+    public function __construct(
+        string $productVariantCode,
+        int $quantity,
+        int $amount = null,
+        string $customMessage = null,
+        string $receiverName = null,
+        string $receiverEmail = null,
+        string $senderName = null)
     {
         parent::__construct($productVariantCode, $quantity);
 
         $this->amount = $amount;
         $this->customMessage = $customMessage;
+        $this->receiverName = $receiverName;
+        $this->receiverEmail = $receiverEmail;
+        $this->senderName = $senderName;
     }
 
     public function getAmount(): ?int
@@ -28,5 +44,20 @@ class AddItemToCart extends BaseAddItemToCart
     public function getCustomMessage(): ?string
     {
         return $this->customMessage;
+    }
+
+    public function getReceiverName(): ?string
+    {
+        return $this->receiverName;
+    }
+
+    public function getReceiverEmail(): ?string
+    {
+        return $this->receiverEmail;
+    }
+
+    public function getSenderName(): ?string
+    {
+        return $this->senderName;
     }
 }

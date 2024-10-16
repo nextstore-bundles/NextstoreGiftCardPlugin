@@ -90,6 +90,9 @@ final class AddItemToCartHandler
             foreach ($cartItem->getUnits() as $unit) {
                 $giftCard = $this->giftCardFactory->createFromOrderItemUnitAndCart($unit, $cart);
                 $giftCard->setCustomMessage($addItemToCart->getCustomMessage());
+                $giftCard->setReceiverName($addItemToCart->getReceiverName());
+                $giftCard->setReceiverEmail($addItemToCart->getReceiverEmail());
+                $giftCard->setSenderName($addItemToCart->getSenderName());
 
                 // As the common flow for any add to cart action will flush later. Do not flush here.
                 $this->giftCardManager->persist($giftCard);

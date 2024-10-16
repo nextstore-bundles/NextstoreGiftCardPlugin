@@ -132,4 +132,16 @@ interface GiftCardInterface extends ResourceInterface, ToggleableInterface, Code
     public function getSendNotificationEmail(): bool;
 
     public function setSendNotificationEmail(bool $sendNotificationEmail = true): void;
+
+    public function getReceiverName(): ?string;
+
+    public function setReceiverName(?string $receiverName): void;
+
+    public function getReceiverEmail(): ?string;
+
+    public function setReceiverEmail(?string $receiverEmail): void;
+
+    public function getSenderName(): ?string;
+
+    public function setSenderName(?string $senderName): void;
 }

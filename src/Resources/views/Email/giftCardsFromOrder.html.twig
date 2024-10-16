@@ -11,6 +11,6 @@
     </p>
 
     {% for giftCard in giftCards %}
-        <b>{{ giftCard.code }}</b> ({{ 'nextstore_sylius_gift_card.email.balance'|trans }}: {{ money.convertAndFormat(giftCard.amount) }})<br>
+        <b>{{ giftCard.code }}</b> ({{ 'nextstore_sylius_gift_card.email.balance'|trans }}: {{ money.format(giftCard.amount, giftCard.currencyCode) }})<br>
     {% endfor %}
 {% endblock %}

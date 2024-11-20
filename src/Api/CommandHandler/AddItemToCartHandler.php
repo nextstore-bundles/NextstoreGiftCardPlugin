@@ -74,6 +74,7 @@ final class AddItemToCartHandler
         if ($addItemToCart instanceof NextstoreSyliusGiftCardAddItemToCart) {
             /** @var ProductInterface $product */
             $product = $productVariant->getProduct();
+            // Хэрвээ тухайн бараа gift card-д ашиглагдах бол үнийг тохируулна
             if ($product->isGiftCardAmountConfigurable()) {
                 $giftCardAmount = $addItemToCart->getAmount();
                 Assert::notNull($giftCardAmount);
@@ -86,16 +87,21 @@ final class AddItemToCartHandler
         $this->orderModifier->addToOrder($cart, $cartItem);
 
         if ($addItemToCart instanceof NextstoreSyliusGiftCardAddItemToCart) {
-            /** @var OrderItemUnitInterface $unit */
-            foreach ($cartItem->getUnits() as $unit) {
-                $giftCard = $this->giftCardFactory->createFromOrderItemUnitAndCart($unit, $cart);
-                $giftCard->setCustomMessage($addItemToCart->getCustomMessage());
-                $giftCard->setReceiverName($addItemToCart->getReceiverName());
-                $giftCard->setReceiverEmail($addItemToCart->getReceiverEmail());
-                $giftCard->setSenderName($addItemToCart->getSenderName());
+            /** @var ProductInterface $product */
+            $product = $productVariant->getProduct();
+            // Хэрвээ тухайн бараа gift card бол gift card үүсгэнэ
+            if ($product->isGiftCard()) {
+                /** @var OrderItemUnitInterface $unit */
+                foreach ($cartItem->getUnits() as $unit) {
+                    $giftCard = $this->giftCardFactory->createFromOrderItemUnitAndCart($unit, $cart);
+                    $giftCard->setCustomMessage($addItemToCart->getCustomMessage());
+                    $giftCard->setReceiverName($addItemToCart->getReceiverName());
+                    $giftCard->setReceiverEmail($addItemToCart->getReceiverEmail());
+                    $giftCard->setSenderName($addItemToCart->getSenderName());
 
-                // As the common flow for any add to cart action will flush later. Do not flush here.
-                $this->giftCardManager->persist($giftCard);
+                    // As the common flow for any add to cart action will flush later. Do not flush here.
+                    $this->giftCardManager->persist($giftCard);
+                }
             }
         }
 

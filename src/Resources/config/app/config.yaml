@@ -14,6 +14,9 @@ sylius_mailer:
         gift_card_order:
             subject: nextstore_sylius_gift_card.email.your_gift_cards_you_bought_in_the_order
             template: "@NextstoreSyliusGiftCardPlugin/Email/giftCardsFromOrder.html.twig"
+        gift_card_receiver:
+            subject: nextstore_sylius_gift_card.email.your_gift_cards_you_bought_in_the_order
+            template: "@NextstoreSyliusGiftCardPlugin/Email/giftCardsFromOrderToReceiver.html.twig"
 
 jms_serializer:
     metadata:

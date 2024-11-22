@@ -1,0 +1,16 @@
+{# @var \Nextstore\SyliusGiftCardPlugin\Model\GiftCardInterface[] giftCards #}
+{% extends '@SyliusAdmin/Email/layout.html.twig' %}
+
+{% block subject %}{{ 'nextstore_sylius_gift_card.email.new_gift_card'|trans }}{% endblock %}
+
+{% block content %}
+    {# This needs to be imported here since the rendering of emails only take the block to render it. Not whole template #}
+    {% import "@SyliusAdmin/Common/Macro/money.html.twig" as money %}
+    <p>
+        {{ giftCards[0].senderName }} {{ 'nextstore_sylius_gift_card.email.sent_you_a_gift_card'|trans }}:
+    </p>
+
+    {% for giftCard in giftCards %}
+        <b>{{ giftCard.code }}</b> ({{ 'nextstore_sylius_gift_card.email.balance'|trans }}: {{ money.format(giftCard.amount, giftCard.currencyCode) }})<br>
+    {% endfor %}
+{% endblock %}

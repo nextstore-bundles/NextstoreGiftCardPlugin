@@ -98,7 +98,7 @@ final class AddItemToCartHandler
                     $giftCard->setReceiverName($addItemToCart->getReceiverName());
                     $giftCard->setReceiverEmail($addItemToCart->getReceiverEmail());
                     $giftCard->setSenderName($addItemToCart->getSenderName());
-
+                    $giftCard->setSendToReceiver($addItemToCart->getSendToReceiver());
                     // As the common flow for any add to cart action will flush later. Do not flush here.
                     $this->giftCardManager->persist($giftCard);
                 }

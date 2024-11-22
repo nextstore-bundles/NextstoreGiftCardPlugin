@@ -10,6 +10,8 @@ final class Emails
 
     public const GIFT_CARD_ORDER = 'gift_card_order';
 
+    public const GIFT_CARD_RECEIVER = 'gift_card_receiver';
+
     private function __construct()
     {
     }

@@ -16,7 +16,7 @@
         <field name="receiverName" nullable="true"/>
         <field name="receiverEmail" nullable="true"/>
         <field name="senderName" nullable="true"/>
-
+        <field name="sendToReceiver" type="boolean"/>
         <field name="createdAt" column="created_at" type="datetime">
             <gedmo:timestampable on="create"/>
         </field>

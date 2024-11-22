@@ -51,7 +51,9 @@ final class OrderGiftCardOperator implements OrderGiftCardOperatorInterface
                 $giftCard = $unit->getGiftCard();
                 Assert::notNull($giftCard);
 
-                $giftCard->setCustomer($customer);
+                if ($giftCard->getReceiverName() === null && $giftCard->getReceiverEmail() === null) {
+                    $giftCard->setCustomer($customer);
+                }
             }
         }
 

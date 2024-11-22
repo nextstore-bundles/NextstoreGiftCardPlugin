@@ -16,4 +16,9 @@ interface GiftCardEmailManagerInterface
      * @param list<GiftCardInterface> $giftCards
      */
     public function sendEmailWithGiftCardsFromOrder(OrderInterface $order, array $giftCards): void;
+
+    /**
+     * @param list<GiftCardInterface> $giftCards
+     */
+    public function sendEmailToReceiverWithGiftCardsFromOrder(OrderInterface $order, array $giftCards): void;
 }

@@ -144,4 +144,8 @@ interface GiftCardInterface extends ResourceInterface, ToggleableInterface, Code
     public function getSenderName(): ?string;
 
     public function setSenderName(?string $senderName): void;
+
+    public function getSendToReceiver(): bool;
+
+    public function setSendToReceiver(bool $sendToReceiver): void;
 }

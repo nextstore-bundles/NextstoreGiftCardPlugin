@@ -18,6 +18,8 @@ class AddItemToCart extends BaseAddItemToCart
 
     protected ?string $senderName;
 
+    protected bool $sendToReceiver = false;
+
     public function __construct(
         string $productVariantCode,
         int $quantity,
@@ -25,7 +27,9 @@ class AddItemToCart extends BaseAddItemToCart
         string $customMessage = null,
         string $receiverName = null,
         string $receiverEmail = null,
-        string $senderName = null)
+        string $senderName = null,
+        bool $sendToReceiver = false
+    )
     {
         parent::__construct($productVariantCode, $quantity);
 
@@ -34,6 +38,7 @@ class AddItemToCart extends BaseAddItemToCart
         $this->receiverName = $receiverName;
         $this->receiverEmail = $receiverEmail;
         $this->senderName = $senderName;
+        $this->sendToReceiver = $sendToReceiver;
     }
 
     public function getAmount(): ?int
@@ -59,5 +64,10 @@ class AddItemToCart extends BaseAddItemToCart
     public function getSenderName(): ?string
     {
         return $this->senderName;
+    }
+
+    public function getSendToReceiver(): bool
+    {
+        return $this->sendToReceiver;
     }
 }

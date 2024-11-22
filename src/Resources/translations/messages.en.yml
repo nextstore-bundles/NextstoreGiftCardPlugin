@@ -88,6 +88,8 @@ nextstore_sylius_gift_card:
         new_gift_card_intro: A new gift card was created for you
         your_gift_card: Your gift card
         your_gift_cards_you_bought_in_the_order: Your gift cards you bought in the order
+        sent_you_a_gift_card: sent you a gift card
+        new_gift_card: New gift card
 
 # Missing from Sylius for some reason
 sylius:

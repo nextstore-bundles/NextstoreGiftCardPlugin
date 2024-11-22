@@ -50,6 +50,8 @@ class GiftCard implements GiftCardInterface
 
     protected bool $sendNotificationEmail = true;
 
+    protected bool $sendToReceiver = false;
+
     protected ?string $receiverName = null;
 
     protected ?string $receiverEmail = null;
@@ -350,5 +352,15 @@ class GiftCard implements GiftCardInterface
     public function setSenderName(?string $senderName): void
     {
         $this->senderName = $senderName;
+    }
+
+    public function getSendToReceiver(): bool
+    {
+        return $this->sendToReceiver;
+    }
+
+    public function setSendToReceiver(bool $sendToReceiver): void
+    {
+        $this->sendToReceiver = $sendToReceiver;
     }
 }

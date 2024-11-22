@@ -108,6 +108,50 @@ final class GiftCardEmailManager implements GiftCardEmailManagerInterface
         });
     }
 
+    public function sendEmailToReceiverWithGiftCardsFromOrder(OrderInterface $order, array $giftCards): void
+    {
+        $receiverName = $giftCards[0]->getReceiverName();
+        $receiverEmail = $giftCards[0]->getReceiverEmail();
+        $senderName = $giftCards[0]->getSenderName();
+
+        if (null === $receiverName || null === $receiverEmail || null === $senderName) {
+            return;
+        }
+
+        $customer = $order->getCustomer();
+        if (null === $customer) {
+            return;
+        }
+
+        $senderEmail = $customer->getEmail();
+        if (null === $senderEmail) {
+            return;
+        }
+
+        $channel = $order->getChannel();
+        if (null === $channel) {
+            return;
+        }
+
+        $localeCode = $this->localeResolver->resolveFromOrder($order);
+
+        $this->wrapTemporaryLocale($localeCode, function () use ($senderEmail, $receiverName, $receiverEmail, $senderName, $giftCards, $order, $channel, $localeCode): void {
+            /** @psalm-suppress DeprecatedMethod */
+            $this->sender->send(
+                Emails::GIFT_CARD_RECEIVER,
+                [$receiverEmail],
+                [
+                    'giftCards' => $giftCards,
+                    'order' => $order,
+                    'channel' => $channel,
+                    // We still need to inject locale to templates because layout is using it
+                    'localeCode' => $localeCode,
+                ],
+                $this->generateAttachments($giftCards),
+            );
+        });
+    }
+
     /**
      * This method will wrap the callback in a flow where the locale is changed
      * in the translator before the callback and changed back after the callback

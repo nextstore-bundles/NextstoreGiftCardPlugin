@@ -26,5 +26,8 @@
         <attribute name="senderName">
             <group>shop:cart:add_item</group>
         </attribute>
+        <attribute name="sendToReceiver">
+            <group>shop:cart:add_item</group>
+        </attribute>
     </class>
 </serializer>

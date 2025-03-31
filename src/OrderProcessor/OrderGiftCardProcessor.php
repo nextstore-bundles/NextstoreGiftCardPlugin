@@ -53,7 +53,7 @@ final class OrderGiftCardProcessor implements OrderProcessorInterface
             if (!$giftCard->isPercentGiftCard()) {
                 $amount = $giftCard->getAmount();
             } else {
-                $amount = ($total * $giftCard->getPercent()) / 100;
+                $amount = (int) ($total * $giftCard->getPercent()) / 100;
             }
 
             if ($total < $amount) {

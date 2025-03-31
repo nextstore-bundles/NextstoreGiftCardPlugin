@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-
-<serializer xmlns="http://symfony.com/schema/dic/serializer-mapping"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/serializer-mapping https://symfony.com/schema/dic/serializer-mapping/serializer-mapping-1.0.xsd"
+<serializer
+    xmlns="http://symfony.com/schema/dic/serializer-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/serializer-mapping https://symfony.com/schema/dic/serializer-mapping/serializer-mapping-1.0.xsd"
 >
     <class name="Nextstore\SyliusGiftCardPlugin\Model\GiftCard">
         <attribute name="id">
@@ -88,6 +88,21 @@
 
         <attribute name="updatedAt">
             <group>admin:gift_card:read</group>
+        </attribute>
+
+        <attribute name="percent">
+            <group>admin:gift_card:create</group>
+            <group>admin:gift_card:read</group>
+            <group>admin:gift_card:update</group>
+            <group>shop:gift_card:read</group>
+            <group>nextstore:sylius-gift-card:render</group>
+        </attribute>
+        <attribute name="percentGiftCard">
+            <group>admin:gift_card:create</group>
+            <group>admin:gift_card:read</group>
+            <group>admin:gift_card:update</group>
+            <group>shop:gift_card:read</group>
+            <group>nextstore:sylius-gift-card:render</group>
         </attribute>
     </class>
 </serializer>

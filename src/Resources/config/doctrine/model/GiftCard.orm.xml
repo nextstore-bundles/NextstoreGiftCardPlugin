@@ -17,6 +17,8 @@
         <field name="receiverEmail" nullable="true"/>
         <field name="senderName" nullable="true"/>
         <field name="sendToReceiver" type="boolean"/>
+        <field name="percent" type="float" nullable="true"/>
+        <field name="percentGiftCard" type="boolean"/>
         <field name="createdAt" column="created_at" type="datetime">
             <gedmo:timestampable on="create"/>
         </field>

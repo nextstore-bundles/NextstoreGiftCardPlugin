@@ -148,4 +148,12 @@ interface GiftCardInterface extends ResourceInterface, ToggleableInterface, Code
     public function getSendToReceiver(): bool;
 
     public function setSendToReceiver(bool $sendToReceiver): void;
+
+    public function getPercent(): ?float;
+
+    public function setPercent(?float $percent): void;
+
+    public function isPercentGiftCard(): bool;
+
+    public function setPercentGiftCard(bool $isPercentGiftCard): void;
 }

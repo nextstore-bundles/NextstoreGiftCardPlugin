@@ -38,6 +38,10 @@ class GiftCard implements GiftCardInterface
 
     protected int $amount = 0;
 
+    protected ?float $percent = null;
+
+    protected bool $percentGiftCard = false;
+
     protected ?string $currencyCode = null;
 
     protected ?ChannelInterface $channel = null;
@@ -362,5 +366,25 @@ class GiftCard implements GiftCardInterface
     public function setSendToReceiver(bool $sendToReceiver): void
     {
         $this->sendToReceiver = $sendToReceiver;
+    }
+
+    public function getPercent(): ?float
+    {
+        return $this->percent;
+    }
+
+    public function setPercent(?float $percent): void
+    {
+        $this->percent = $percent;
+    }
+
+    public function isPercentGiftCard(): bool
+    {
+        return $this->percentGiftCard;
+    }
+
+    public function setPercentGiftCard(bool $isPercentGiftCard): void
+    {
+        $this->percentGiftCard = $isPercentGiftCard;
     }
 }

@@ -28,17 +28,21 @@ final class OrderGiftCardAmountModifier implements OrderGiftCardAmountModifierIn
         foreach ($order->getAdjustments(AdjustmentInterface::ORDER_GIFT_CARD_ADJUSTMENT) as $adjustment) {
             $giftCard = self::getGiftCard($order, (string) $adjustment->getOriginCode());
 
-            $amount = abs($adjustment->getAmount());
-
-            if ($amount >= $giftCard->getAmount()) {
+            if ($giftCard->isPercentGiftCard()) {
                 $giftCard->disable();
-                $giftCard->setAmount(0);
-            }
+            } else {
+                $amount = abs($adjustment->getAmount());
 
-            if ($amount < $giftCard->getAmount()) {
-                $giftCard->enable();
+                if ($amount >= $giftCard->getAmount()) {
+                    $giftCard->disable();
+                    $giftCard->setAmount(0);
+                }
 
-                $giftCard->setAmount($giftCard->getAmount() - $amount);
+                if ($amount < $giftCard->getAmount()) {
+                    $giftCard->enable();
+
+                    $giftCard->setAmount($giftCard->getAmount() - $amount);
+                }
             }
         }
 
@@ -49,10 +53,13 @@ final class OrderGiftCardAmountModifier implements OrderGiftCardAmountModifierIn
     {
         foreach ($order->getAdjustments(AdjustmentInterface::ORDER_GIFT_CARD_ADJUSTMENT) as $adjustment) {
             $giftCard = self::getGiftCard($order, (string) $adjustment->getOriginCode());
+            if (!$giftCard->isPercentGiftCard()) {
+                $giftCard->setAmount($giftCard->getAmount() + abs($adjustment->getAmount()));
 
-            $giftCard->setAmount($giftCard->getAmount() + abs($adjustment->getAmount()));
-
-            if ($giftCard->getAmount() > 0) {
+                if ($giftCard->getAmount() > 0) {
+                    $giftCard->enable();
+                }
+            } else {
                 $giftCard->enable();
             }
         }

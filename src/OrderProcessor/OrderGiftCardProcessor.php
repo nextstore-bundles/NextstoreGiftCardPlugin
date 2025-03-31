@@ -47,8 +47,14 @@ final class OrderGiftCardProcessor implements OrderProcessorInterface
         }
 
         foreach ($order->getGiftCards() as $giftCard) {
-            $amount = $giftCard->getAmount();
             $total = $this->orderEligibleTotalProvider->getEligibleTotal($order, $giftCard);
+
+            $amount = 0;
+            if (!$giftCard->isPercentGiftCard()) {
+                $amount = $giftCard->getAmount();
+            } else {
+                $amount = ($total * $giftCard->getPercent()) / 100;
+            }
 
             if ($total < $amount) {
                 $amount = $total;

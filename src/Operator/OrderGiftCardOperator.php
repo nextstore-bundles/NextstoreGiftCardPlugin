@@ -10,6 +10,7 @@ use Nextstore\SyliusGiftCardPlugin\EmailManager\GiftCardEmailManagerInterface;
 use Nextstore\SyliusGiftCardPlugin\Model\GiftCardInterface;
 use Nextstore\SyliusGiftCardPlugin\Model\OrderItemUnitInterface;
 use Nextstore\SyliusGiftCardPlugin\Model\ProductInterface;
+use Sylius\Component\Core\Model\Customer;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
@@ -53,6 +54,12 @@ final class OrderGiftCardOperator implements OrderGiftCardOperatorInterface
 
                 if ($giftCard->getReceiverName() === null && $giftCard->getReceiverEmail() === null) {
                     $giftCard->setCustomer($customer);
+                } else {
+                    $receiver = $this->giftCardManager->getRepository(Customer::class)->findOneBy(['email' => $giftCard->getReceiverEmail()]);
+
+                    if ($receiver !== null) {
+                        $giftCard->setCustomer($receiver);
+                    }
                 }
             }
         }

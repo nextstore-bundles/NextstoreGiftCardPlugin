@@ -28,14 +28,12 @@ final class GiftCardCodeGenerator implements GiftCardCodeGeneratorInterface
 
     public function generate(): string
     {
+        // Calculate max value based on code length (10^n - 1)
+        $maxValue = (int) str_repeat('9', $this->codeLength);
+
         do {
-            // if we didn't remove the 'hard to read' characters we would only have to
-            // generate codeLength / 2 bytes because hex uses two characters to represent one byte
-            /** @psalm-suppress ArgumentTypeCoercion */
-            $code = bin2hex(random_bytes($this->codeLength));
-            $code = preg_replace('/[01]/', '', $code); // remove hard to read characters
-            $code = mb_strtoupper(mb_substr($code, 0, $this->codeLength));
-        } while (mb_strlen($code) !== $this->codeLength || $this->exists($code));
+            $code = sprintf('%0' . $this->codeLength . 'd', mt_rand(1, $maxValue));
+        } while ($this->exists($code));
 
         return $code;
     }

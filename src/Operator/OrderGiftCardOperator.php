@@ -55,7 +55,7 @@ final class OrderGiftCardOperator implements OrderGiftCardOperatorInterface
                 if ($giftCard->getReceiverName() === null && $giftCard->getReceiverEmail() === null) {
                     $giftCard->setCustomer($customer);
                 } else {
-                    $receiver = $this->giftCardManager->getRepository(Customer::class)->findOneBy(['email' => $giftCard->getReceiverEmail()]);
+                    $receiver = $this->giftCardManager->getRepository(CustomerInterface::class)->findOneBy(['email' => $giftCard->getReceiverEmail()]);
 
                     if ($receiver !== null) {
                         $giftCard->setCustomer($receiver);

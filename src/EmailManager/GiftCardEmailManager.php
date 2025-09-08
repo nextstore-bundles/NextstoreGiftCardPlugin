@@ -123,10 +123,10 @@ final class GiftCardEmailManager implements GiftCardEmailManagerInterface
             return;
         }
 
-        $senderEmail = $customer->getEmail();
-        if (null === $senderEmail) {
-            return;
-        }
+        // $senderEmail = $customer->getEmail();
+        // if (null === $senderEmail) {
+        //     return;
+        // }
 
         $channel = $order->getChannel();
         if (null === $channel) {
@@ -135,7 +135,7 @@ final class GiftCardEmailManager implements GiftCardEmailManagerInterface
 
         $localeCode = $this->localeResolver->resolveFromOrder($order);
 
-        $this->wrapTemporaryLocale($localeCode, function () use ($senderEmail, $receiverName, $receiverEmail, $senderName, $giftCards, $order, $channel, $localeCode): void {
+        $this->wrapTemporaryLocale($localeCode, function () use ($receiverName, $receiverEmail, $senderName, $giftCards, $order, $channel, $localeCode): void {
             /** @psalm-suppress DeprecatedMethod */
             $this->sender->send(
                 Emails::GIFT_CARD_RECEIVER,

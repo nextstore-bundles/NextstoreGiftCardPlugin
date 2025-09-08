@@ -1,10 +1,8 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Nextstore\SyliusGiftCardPlugin\Generator;
 
-use function preg_replace;
 use Nextstore\SyliusGiftCardPlugin\Repository\GiftCardRepositoryInterface;
 use Webmozart\Assert\Assert;
 
@@ -15,27 +13,56 @@ final class GiftCardCodeGenerator implements GiftCardCodeGeneratorInterface
     /** @var positive-int */
     private int $codeLength;
 
+    /** @var positive-int */
+    private int $startingCode;
+
     /**
      * @param positive-int $codeLength
+     * @param positive-int $startingCode
      */
-    public function __construct(GiftCardRepositoryInterface $giftCardRepository, int $codeLength)
+    public function __construct(GiftCardRepositoryInterface $giftCardRepository, int $codeLength, int $startingCode)
     {
         Assert::greaterThan($codeLength, 0);
+        Assert::greaterThan($startingCode, 0);
 
         $this->giftCardRepository = $giftCardRepository;
         $this->codeLength = $codeLength;
+        $this->startingCode = $startingCode;
     }
 
     public function generate(): string
     {
-        // Calculate max value based on code length (10^n - 1)
+        // Get the next available sequential code
+        $nextCode = $this->getNextSequentialCode();
+
+        // Format with leading zeros based on code length
+        return sprintf('%0' . $this->codeLength . 'd', $nextCode);
+    }
+
+    private function getNextSequentialCode(): int
+    {
+        // Get the highest existing code from the database
+        $highestCode = $this->giftCardRepository->findHighestCode();
+
+        if ($highestCode === null) {
+            // No codes exist yet, start from the starting code
+            return $this->startingCode;
+        }
+
+        // Convert highest code to integer and increment
+        $highestCodeInt = (int) $highestCode;
+        $nextCode = max($highestCodeInt + 1, $this->startingCode);
+
+        // Calculate max value based on code length
         $maxValue = (int) str_repeat('9', $this->codeLength);
 
-        do {
-            $code = sprintf('%0' . $this->codeLength . 'd', mt_rand(1, $maxValue));
-        } while ($this->exists($code));
+        if ($nextCode > $maxValue) {
+            throw new \RuntimeException(
+                sprintf('Cannot generate code: reached maximum value (%d) for code length %d', $maxValue, $this->codeLength)
+            );
+        }
 
-        return $code;
+        return $nextCode;
     }
 
     private function exists(string $code): bool

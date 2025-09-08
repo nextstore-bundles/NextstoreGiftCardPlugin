@@ -74,4 +74,16 @@ class GiftCardRepository extends EntityRepository implements GiftCardRepositoryI
 
         return $qb;
     }
+
+    public function findHighestCode(): ?string
+    {
+        $result = $this->createQueryBuilder('gc')
+            ->select('gc.code')
+            ->orderBy('CAST(gc.code AS UNSIGNED)', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        return $result ? $result['code'] : null;
+    }
 }

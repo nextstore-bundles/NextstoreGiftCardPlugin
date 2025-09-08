@@ -7,6 +7,7 @@
                  class="Nextstore\SyliusGiftCardPlugin\Generator\GiftCardCodeGenerator">
             <argument type="service" id="nextstore_sylius_gift_card.repository.gift_card"/>
             <argument>%nextstore_sylius_gift_card.code_length%</argument>
+            <argument>%nextstore_sylius_gift_card.starting_code%</argument>
         </service>
 
         <service id="nextstore_sylius_gift_card.email_manager.gift_card_order"

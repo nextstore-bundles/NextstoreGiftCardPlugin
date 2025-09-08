@@ -79,7 +79,7 @@ class GiftCardRepository extends EntityRepository implements GiftCardRepositoryI
     {
         $result = $this->createQueryBuilder('gc')
             ->select('gc.code')
-            ->orderBy('CAST(gc.code AS UNSIGNED)', 'DESC')
+            ->orderBy('gc.code + 0', 'DESC')  // Converts string to number for sorting
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();

@@ -49,6 +49,10 @@ final class GiftCardCodeGenerator implements GiftCardCodeGeneratorInterface
             return $this->startingCode;
         }
 
+        if ($highestCode < $this->startingCode) {
+            return $this->startingCode;
+        }
+
         // Convert highest code to integer and increment
         $highestCodeInt = (int) $highestCode;
         $nextCode = max($highestCodeInt + 1, $this->startingCode);

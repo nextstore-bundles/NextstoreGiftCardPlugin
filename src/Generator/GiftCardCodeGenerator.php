@@ -16,6 +16,9 @@ final class GiftCardCodeGenerator implements GiftCardCodeGeneratorInterface
     /** @var positive-int */
     private int $startingCode;
 
+    /** @var int */
+    private int $lastGeneratedCode;
+
     /**
      * @param positive-int $codeLength
      * @param positive-int $startingCode
@@ -28,6 +31,7 @@ final class GiftCardCodeGenerator implements GiftCardCodeGeneratorInterface
         $this->giftCardRepository = $giftCardRepository;
         $this->codeLength = $codeLength;
         $this->startingCode = $startingCode;
+        $this->lastGeneratedCode = 0;
     }
 
     public function generate(): string
@@ -41,32 +45,40 @@ final class GiftCardCodeGenerator implements GiftCardCodeGeneratorInterface
 
     private function getNextSequentialCode(): int
     {
+        // If we've already generated a code in this request, use that as the baseline
+        if ($this->lastGeneratedCode > 0) {
+            $this->lastGeneratedCode++;
+            return $this->lastGeneratedCode;
+        }
+
         // Get the highest existing code from the database
         $highestCode = $this->giftCardRepository->findHighestCode();
 
         if ($highestCode === null) {
             // No codes exist yet, start from the starting code
-            return $this->startingCode;
+            $this->lastGeneratedCode = $this->startingCode;
+            return $this->lastGeneratedCode;
         }
 
         if ($highestCode < $this->startingCode) {
-            return $this->startingCode;
+            $this->lastGeneratedCode = $this->startingCode;
+            return $this->lastGeneratedCode;
         }
 
         // Convert highest code to integer and increment
         $highestCodeInt = (int) $highestCode;
-        $nextCode = max($highestCodeInt + 1, $this->startingCode);
+        $this->lastGeneratedCode = max($highestCodeInt + 1, $this->startingCode);
 
         // Calculate max value based on code length
         $maxValue = (int) str_repeat('9', $this->codeLength);
 
-        if ($nextCode > $maxValue) {
+        if ($this->lastGeneratedCode > $maxValue) {
             throw new \RuntimeException(
                 sprintf('Cannot generate code: reached maximum value (%d) for code length %d', $maxValue, $this->codeLength)
             );
         }
 
-        return $nextCode;
+        return $this->lastGeneratedCode;
     }
 
     private function exists(string $code): bool

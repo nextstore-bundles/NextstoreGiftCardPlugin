@@ -77,13 +77,14 @@ class GiftCardRepository extends EntityRepository implements GiftCardRepositoryI
 
     public function findHighestCode(): ?string
     {
-        $result = $this->createQueryBuilder('gc')
-            ->select('gc.code')
-            ->orderBy('gc.code + 0', 'DESC')  // Converts string to number for sorting
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult();
+        // Only consider gift cards that were purchased through an order (order_item_unit_id IS NOT NULL)
+        // This excludes connected cards from the main codebase that don't have an order association
+        $conn = $this->getEntityManager()->getConnection();
+        $tableName = $this->getClassMetadata()->getTableName();
 
-        return $result ? $result['code'] : null;
+        $sql = "SELECT code FROM {$tableName} WHERE order_item_unit_id IS NOT NULL ORDER BY CAST(code AS UNSIGNED) DESC LIMIT 1";
+        $result = $conn->fetchOne($sql);
+
+        return $result !== false ? (string) $result : null;
     }
 }

@@ -7,6 +7,7 @@ namespace Nextstore\SyliusGiftCardPlugin\Operator;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Nextstore\SyliusGiftCardPlugin\EmailManager\GiftCardEmailManagerInterface;
+use Nextstore\SyliusGiftCardPlugin\Factory\GiftCardFactoryInterface;
 use Nextstore\SyliusGiftCardPlugin\Model\GiftCardInterface;
 use Nextstore\SyliusGiftCardPlugin\Model\OrderItemUnitInterface;
 use Nextstore\SyliusGiftCardPlugin\Model\ProductInterface;
@@ -26,12 +27,16 @@ final class OrderGiftCardOperator implements OrderGiftCardOperatorInterface
 
     private GiftCardEmailManagerInterface $giftCardOrderEmailManager;
 
+    private GiftCardFactoryInterface $giftCardFactory;
+
     public function __construct(
         EntityManagerInterface $giftCardManager,
         GiftCardEmailManagerInterface $giftCardOrderEmailManager,
+        GiftCardFactoryInterface $giftCardFactory,
     ) {
         $this->giftCardManager = $giftCardManager;
         $this->giftCardOrderEmailManager = $giftCardOrderEmailManager;
+        $this->giftCardFactory = $giftCardFactory;
     }
 
     public function associateToCustomer(OrderInterface $order): void
@@ -47,10 +52,32 @@ final class OrderGiftCardOperator implements OrderGiftCardOperatorInterface
         Assert::isInstanceOf($customer, CustomerInterface::class);
 
         foreach ($items as $item) {
+            // Find an existing gift card on this item to use as template for receiver info
+            $templateGiftCard = null;
+            /** @var OrderItemUnitInterface $unit */
+            foreach ($item->getUnits() as $unit) {
+                if ($unit->getGiftCard() !== null) {
+                    $templateGiftCard = $unit->getGiftCard();
+                    break;
+                }
+            }
+
             /** @var OrderItemUnitInterface $unit */
             foreach ($item->getUnits() as $unit) {
                 $giftCard = $unit->getGiftCard();
-                Assert::notNull($giftCard);
+
+                // Create gift card for units added via quantity increase (they have no gift card yet)
+                if ($giftCard === null) {
+                    $giftCard = $this->giftCardFactory->createFromOrderItemUnitAndCart($unit, $order);
+                    if ($templateGiftCard !== null) {
+                        $giftCard->setCustomMessage($templateGiftCard->getCustomMessage());
+                        $giftCard->setReceiverName($templateGiftCard->getReceiverName());
+                        $giftCard->setReceiverEmail($templateGiftCard->getReceiverEmail());
+                        $giftCard->setSenderName($templateGiftCard->getSenderName());
+                        $giftCard->setSendToReceiver($templateGiftCard->getSendToReceiver());
+                    }
+                    $this->giftCardManager->persist($giftCard);
+                }
 
                 if ($giftCard->getReceiverName() === null && $giftCard->getReceiverEmail() === null) {
                     $giftCard->setCustomer($customer);

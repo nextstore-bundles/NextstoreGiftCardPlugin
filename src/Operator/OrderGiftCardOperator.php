@@ -136,10 +136,23 @@ final class OrderGiftCardOperator implements OrderGiftCardOperatorInterface
             return;
         }
 
-        if ($giftCards[0]->getSendToReceiver()) {
-            $this->sendToReceiver($order, $giftCards);
-        } else {
-            $this->giftCardOrderEmailManager->sendEmailWithGiftCardsFromOrder($order, $giftCards);
+        $receiverGiftCards = [];
+        $customerGiftCards = [];
+
+        foreach ($giftCards as $giftCard) {
+            if ($giftCard->getSendToReceiver() && $giftCard->getReceiverEmail() !== null) {
+                $receiverGiftCards[] = $giftCard;
+            } else {
+                $customerGiftCards[] = $giftCard;
+            }
+        }
+
+        if (count($receiverGiftCards) > 0) {
+            $this->giftCardOrderEmailManager->sendEmailToReceiverWithGiftCardsFromOrder($order, $receiverGiftCards);
+        }
+
+        if (count($customerGiftCards) > 0) {
+            $this->giftCardOrderEmailManager->sendEmailWithGiftCardsFromOrder($order, $customerGiftCards);
         }
     }
 

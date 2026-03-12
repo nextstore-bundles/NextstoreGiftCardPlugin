@@ -54,7 +54,7 @@ class GiftCard implements GiftCardInterface
 
     protected bool $sendNotificationEmail = true;
 
-    protected bool $sendToReceiver = false;
+    protected bool $sendToReceiver = true;
 
     protected ?string $receiverName = null;
 

@@ -14,6 +14,7 @@ use Sylius\Bundle\ShippingBundle\Provider\DateTimeProvider;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Currency\Context\CurrencyContextInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Webmozart\Assert\Assert;
@@ -92,10 +93,14 @@ final class GiftCardFactory implements GiftCardFactoryInterface
         Assert::isInstanceOf($channel, ChannelInterface::class);
         $currencyCode = $cart->getCurrencyCode();
         Assert::notNull($currencyCode);
+        /** @var OrderItemInterface $item */
+        $item = $orderItemUnit->getOrderItem();
+        $variant = $item->getVariant();
+        $channelPricing = $variant->getChannelPricingForChannel($channel);
 
         $giftCard = $this->createForChannel($channel);
         $giftCard->setOrderItemUnit($orderItemUnit);
-        $giftCard->setAmount($orderItemUnit->getTotal());
+        $giftCard->setAmount($channelPricing->getPrice());
         $giftCard->setCurrencyCode($currencyCode);
         $giftCard->setChannel($channel);
         $giftCard->disable();

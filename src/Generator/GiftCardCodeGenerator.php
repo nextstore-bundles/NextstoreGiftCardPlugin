@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Nextstore\SyliusGiftCardPlugin\Generator;
@@ -8,81 +9,38 @@ use Webmozart\Assert\Assert;
 
 final class GiftCardCodeGenerator implements GiftCardCodeGeneratorInterface
 {
-    private GiftCardRepositoryInterface $giftCardRepository;
+    private const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
     /** @var positive-int */
     private int $codeLength;
 
-    /** @var positive-int */
-    private int $startingCode;
-
-    /** @var int */
-    private int $lastGeneratedCode;
-
-    /**
-     * @param positive-int $codeLength
-     * @param positive-int $startingCode
-     */
-    public function __construct(GiftCardRepositoryInterface $giftCardRepository, int $codeLength, int $startingCode)
-    {
+    public function __construct(
+        private readonly GiftCardRepositoryInterface $giftCardRepository,
+        int $codeLength,
+    ) {
         Assert::greaterThan($codeLength, 0);
-        Assert::greaterThan($startingCode, 0);
 
-        $this->giftCardRepository = $giftCardRepository;
         $this->codeLength = $codeLength;
-        $this->startingCode = $startingCode;
-        $this->lastGeneratedCode = 0;
     }
 
     public function generate(): string
     {
-        // Get the next available sequential code
-        $nextCode = $this->getNextSequentialCode();
+        do {
+            $code = $this->generateRandomCode();
+        } while ($this->giftCardRepository->findOneByCode($code) !== null);
 
-        // Format with leading zeros based on code length
-        return sprintf('%0' . $this->codeLength . 'd', $nextCode);
+        return $code;
     }
 
-    private function getNextSequentialCode(): int
+    private function generateRandomCode(): string
     {
-        // If we've already generated a code in this request, use that as the baseline
-        if ($this->lastGeneratedCode > 0) {
-            $this->lastGeneratedCode++;
-            return $this->lastGeneratedCode;
+        $alphabetMax = strlen(self::ALPHABET) - 1;
+        $code = '';
+
+        for ($i = 0; $i < $this->codeLength; $i++) {
+            $code .= self::ALPHABET[random_int(0, $alphabetMax)];
         }
 
-        // Get the highest existing code from the database
-        $highestCode = $this->giftCardRepository->findHighestCode();
-
-        if ($highestCode === null) {
-            // No codes exist yet, start from the starting code
-            $this->lastGeneratedCode = $this->startingCode;
-            return $this->lastGeneratedCode;
-        }
-
-        if ($highestCode < $this->startingCode) {
-            $this->lastGeneratedCode = $this->startingCode;
-            return $this->lastGeneratedCode;
-        }
-
-        // Convert highest code to integer and increment
-        $highestCodeInt = (int) $highestCode;
-        $this->lastGeneratedCode = max($highestCodeInt + 1, $this->startingCode);
-
-        // Calculate max value based on code length
-        $maxValue = (int) str_repeat('9', $this->codeLength);
-
-        if ($this->lastGeneratedCode > $maxValue) {
-            throw new \RuntimeException(
-                sprintf('Cannot generate code: reached maximum value (%d) for code length %d', $maxValue, $this->codeLength)
-            );
-        }
-
-        return $this->lastGeneratedCode;
-    }
-
-    private function exists(string $code): bool
-    {
-        return null !== $this->giftCardRepository->findOneByCode($code);
+        return $code;
     }
 }
